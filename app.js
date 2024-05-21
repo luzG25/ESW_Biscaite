@@ -2,13 +2,18 @@ const express = require('express')
 const path = require('path')
 const conexaoBD = require('./util/database')
 const { Cliente, Morada, Categoria, Imagem, PrestadorServico, Servico, Comentarios } = require('./models/models');
-
+const clientRoutes = require('./routes/clientRoutes')
+const servicoRoutes = require('./routes/servicosRoutes')
 
 
 const app = express()
 
 const port = 2000
 const hostname = "localhost"
+
+app.use(express.json());
+app.use(clientRoutes);
+app.use('/servico_admin', servicoRoutes);
 
 
 conexaoBD.authenticate()

@@ -1,0 +1,4 @@
+to do: 
+    -avaliação somente por validação de token pelo client
+    -modificação somente pela validação do token
+    -qualquer operação no servicosController tem que ter validação do token
