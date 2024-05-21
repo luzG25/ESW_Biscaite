@@ -3,7 +3,7 @@ const client = require('../controllers/clientController')
 const router = express.Router()
 
 // criar cliente
-router.post('/novoClient', client.criarCliente)
+router.post('/novoCliente', client.criarCliente)
 
 //autenticar cliente
 router.post('/autenticate', client.autenticarCliente)

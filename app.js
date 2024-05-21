@@ -1,9 +1,11 @@
 const express = require('express')
 const path = require('path')
 const conexaoBD = require('./util/database')
+const inserirMoradas = require('./models/moradaInsert')
 const { Cliente, Morada, Categoria, Imagem, PrestadorServico, Servico, Comentarios } = require('./models/models');
 const clientRoutes = require('./routes/clientRoutes')
 const servicoRoutes = require('./routes/servicosRoutes')
+const moradaRoutes = require('./routes/moradaRoutes')
 
 
 const app = express()
@@ -14,6 +16,7 @@ const hostname = "localhost"
 app.use(express.json());
 app.use(clientRoutes);
 app.use('/servico_admin', servicoRoutes);
+app.use('/moradas', moradaRoutes)
 
 
 conexaoBD.authenticate()
@@ -27,13 +30,20 @@ conexaoBD.authenticate()
 
     .then(() => {
       console.log('Tabelas sincronizadas com sucesso!');
+      
+      
+
+
   })
 
     .then(() => {
         // Iniciar o servidor
         app.listen(process.env.PORT ||  port, () => {
-          console.log(`Backend rodando em http://${hostname}:${port}/`);
+          console.log(`\n\n\n\n\n\n\nBackend rodando em http://${hostname}:${port}/`);
         });
+
+        console.log('Inserindo moradas na Tabela')
+        inserirMoradas(Morada)
       })
 
     .catch(error => {

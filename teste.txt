@@ -1,0 +1,9 @@
+1.Para criar testar o app, primeiro foi listado as moradas com
+    http://localhost:2000/moradas/listar com GET, e guardei um valor aleatório
+    de alguma morada.
+
+2.Aproveitei para testar o comando delete:
+    http://localhost:2000/moradas/deletar/18 com delete
+
+3. Criando um cliente (usuario) para o sistema:
+    
