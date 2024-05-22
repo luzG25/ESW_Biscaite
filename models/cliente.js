@@ -11,18 +11,22 @@ const Cliente = sequelize.define('Cliente', {
         type: Sequelize.INTEGER,
         allowNull: false
     },
+    nome: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     telefone: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
     email: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     password: {
         type: Sequelize.STRING,
-        allowNull:false,
-        unique: true
+        allowNull:false
     }
 }, {
     tableName: 'cliente',

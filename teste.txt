@@ -6,4 +6,23 @@
     http://localhost:2000/moradas/deletar/18 com delete
 
 3. Criando um cliente (usuario) para o sistema:
-    
+    o payload:
+    {
+        "nome": "Miguel Vicente",
+        "morada": 12,
+        "telefone": 9784255,
+        "email": "mvice@bisc.cv",
+        "password": "123"
+    }
+
+    no endereço: http://localhost:2000/novoCliente com POST
+
+4. Autenticando esse mesmo cliente no sistema:
+    o payload:
+    {
+        "email": "mvice@bisc.cv",
+        "password": "123"
+    }
+    no endereço: http://localhost:2000/autenticate com POST
+
+5. Criando um prestador de serviço, ou seja, transformação de um cliente em prestador de serviço
