@@ -2,22 +2,27 @@ const Sequelize = require('sequelize');
 const sequelize = require('../util/database');
 
 const PrestadorServico = sequelize.define('PrestadorServico', {
-    id_cliente: {
+    id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        allowNull: false
+        autoIncrement: true
+    },
+    id_cliente: {
+        type:Sequelize.INTEGER,
+        allowNull: false,
+        unique: true
     },
     alcunha: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     imagem_perfil: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     biografia: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     }
 }, {
     tableName: 'prestador_servico',

@@ -1,3 +1,6 @@
+database: biscatebd
+
+ROTEIRO DO TESTE:
 1.Para criar testar o app, primeiro foi listado as moradas com
     http://localhost:2000/moradas/listar com GET, e guardei um valor aleatório
     de alguma morada.
@@ -26,3 +29,31 @@
     no endereço: http://localhost:2000/autenticate com POST
 
 5. Criando um prestador de serviço, ou seja, transformação de um cliente em prestador de serviço
+    payload:
+    {
+        "id_cliente": 1,
+        "alcunha": "vic",
+        "biografia": "best handyman in the city"
+    }
+    no endereço: http://localhost:2000/servico_admin/criar com POST
+
+6. Criando um serviço pelo prestador de serviço acima:
+    payload:
+    {
+        "id_prestador": "1",
+        "nome_servico":"Canalização",
+        "descricao":"Canalização doméstico e industrial"
+    }
+    no endereço: http://localhost:2000/servico_admin/novoServico com POST
+
+7. Obtendo todos os serviços disponiveis na plataforma
+    no endereço: http://localhost:2000/servicos com GET
+
+8. E finalmente, fazer a avaliação de um serviço por um cliente 
+    payload
+    {
+        "id_cliente": "1",
+        "comentario": "Serviço Fantastico",
+        "pontos": 10
+    }
+    no endereço: http://localhost:2000/servico/1 com POST

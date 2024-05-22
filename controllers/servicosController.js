@@ -52,4 +52,6 @@ const criarServico = async (req, res) => {
     }
 };
 
+// todo: Modificar servico
+
 module.exports = { criarPrestadorServico, modificarPrestadorServico, criarServico };

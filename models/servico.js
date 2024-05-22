@@ -21,11 +21,11 @@ const Servico = sequelize.define('Servico', {
     },
     id_categoria: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     imagens: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: true
     }
 }, {
     tableName: 'servico',
