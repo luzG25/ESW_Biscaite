@@ -18,7 +18,7 @@ const criarMorada = async (req, res) => {
 const listarMoradas = async (req, res) => {
     try {
         const moradas = await models.Morada.findAll();
-        res.status(200).json(moradas);
+        res.status(200).json({ moradas: moradas });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

@@ -50,3 +50,5 @@ conexaoBD.authenticate()
         console.error('Erro ao conectar com base de dados: ', error)
         process.exit(1)
     })
+
+module.exports = app
