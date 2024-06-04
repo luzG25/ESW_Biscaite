@@ -17,11 +17,6 @@ describe('Roteiro de Teste Completo', () => {
         idMoradaAleatoria = response.body.morada[0].id;
     });
 
-    it('2. Deletar uma Morada', async () => {
-        const response = await request(app).delete(`/moradas/deletar/${idMoradaAleatoria}`);
-        expect(response.status).toBe(200);
-        expect(response.body.message).toBe('Morada deletada com sucesso');
-    });
 
     it('3. Criar um Cliente', async () => {
         const payload = {

@@ -1,7 +1,5 @@
 const express = require('express')
-const cors = require('cors');
 const path = require('path');
-const logger = require('morgan');
 const conexaoBD = require('./util/database')
 //const inserirMoradas = require('./models/moradaInsert')
 const { Cliente, Morada, Categoria, Imagem, PrestadorServico, Servico, Comentarios } = require('./models/models');
@@ -15,9 +13,6 @@ const app = express()
 
 const port = 2000
 const hostname = "localhost"
-
-app.use(cors());
-app.use(logger('dev'))
 
 app.use(express.json());
 app.use(clientRoutes);
