@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../server'); 
+const app = require('../app'); 
 const { Morada, Cliente, PrestadorServico, Servico, Comentarios } = require('../models'); 
 
 describe('Roteiro de Teste Completo', () => {
