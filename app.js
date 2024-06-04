@@ -42,13 +42,13 @@ conexaoBD.authenticate()
           console.log(`\n\n\n\n\n\n\nBackend rodando em http://${hostname}:${port}/`);
         });
 
-        console.log('Inserindo moradas na Tabela')
+        //console.log('Inserindo moradas na Tabela')
         inserirMoradas(Morada)
       })
 
     .catch(error => {
         console.error('Erro ao conectar com base de dados: ', error)
-        process.exit(1)
+        //process.exit(1)
     })
 
 module.exports = app

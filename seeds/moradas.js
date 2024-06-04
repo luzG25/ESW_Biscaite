@@ -1,0 +1,112 @@
+'use strict';
+
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up (queryInterface, Sequelize) {
+    return queryInterface.bulkInsert('morada', [    {
+        "ilha": "Santo Antão",
+        "cidade": "Porto Novo",
+        "zona": "Cidade"
+    },
+    {
+        "ilha": "Santo Antão",
+        "cidade": "Ribeira Grande",
+        "zona": "Cidade"
+    },
+    {
+        "ilha": "Santo Antão",
+        "cidade": "Ponta do Sol",
+        "zona": "Cidade"
+    },
+    {
+        "ilha": "Santo Antão",
+        "cidade": "Paul",
+        "zona": "Cidade"
+    },
+    {
+        "ilha": "São Vicente",
+        "cidade": "Mindelo",
+        "zona": "Monte Sossego"
+    },
+    {
+        "ilha": "São Vicente",
+        "cidade": "Mindelo",
+        "zona": "Bela Vista"
+    },
+    {
+        "ilha": "São Vicente",
+        "cidade": "Mindelo",
+        "zona": "Fonte Francês"
+    },
+    {
+        "ilha": "São Vicente",
+        "cidade": "Mindelo",
+        "zona": "Lameirão"
+    },
+    {
+        "ilha": "São Vicente",
+        "cidade": "Mindelo",
+        "zona": "Ribeira Bote"
+    },
+    {
+        "ilha": "São Vicente",
+        "cidade": "Mindelo",
+        "zona": "Monte"
+    },
+    {
+        "ilha": "São Vicente",
+        "cidade": "Mindelo",
+        "zona": "Cruz João Évora"
+    },
+    {
+        "ilha": "São Vicente",
+        "cidade": "Mindelo",
+        "zona": "Chã de Alecrim"
+    },
+    {
+        "ilha": "São Vicente",
+        "cidade": "Mindelo",
+        "zona": "Monte Sossego"
+    },
+    {
+        "ilha": "São Vicente",
+        "cidade": "Mindelo",
+        "zona": "Campim"
+    },
+    {
+        "ilha": "São Vicente",
+        "cidade": "Mindelo",
+        "zona": "Mato Ingles"
+    },
+    {
+        "ilha": "São Vicente",
+        "cidade": "Mindelo",
+        "zona": "Madeiralzinho"
+    },
+    {
+        "ilha": "São Vicente",
+        "cidade": "Mindelo",
+        "zona": "Alto Miramar"
+    },
+    {
+        "ilha": "São Vicente",
+        "cidade": "Mindelo",
+        "zona": "Alto Solarine"
+    },
+    {
+        "ilha": "São Vicente",
+        "cidade": "Mindelo",
+        "zona": "Salamansa"
+    },
+    {
+        "ilha": "São Vicente",
+        "cidade": "Mindelo",
+        "zona": "Sao Pedro"
+    }], {});
+
+  },
+
+  async down (queryInterface, Sequelize) {
+    return queryInterface.bulkDelete('morada', null, {});
+  }
+};

@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('../util/path')
 
+
 // Lê o arquivo JSON com as moradas
 const moradas = JSON.parse(fs.readFileSync(path + '/DATA/moradas.json', 'utf-8'));
 

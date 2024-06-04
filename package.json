@@ -5,8 +5,11 @@
   "main": "app.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
-    "start": "nodemon --ignore data/ app.js",
-    "start-server": "node app.js"
+    "pretest": "cross-env NODE_ENV=test npm run db:reset",
+    "db:create:test": "cross-env NODE_ENV=test npx sequelize-cli db:create && node ./util/syncDatabase.js",
+    "start": "nodemon app.js",
+    "start-server": "node app.js",
+    "db:reset": "cross-env NODE_ENV=test npx sequelize-cli db:drop && cross-env NODE_ENV=test npx sequelize-cli db:create && node ./util/syncDatabase.js && NODE_ENV=test npx sequelize-cli db:seed:all"
   },
   "keywords": [],
   "author": "Gabriel da Luz",
