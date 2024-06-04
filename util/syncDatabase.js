@@ -1,13 +1,9 @@
 const Sequelize = require('sequelize');
 const connectionDB = require('./database');
 
-const { Cart, Produto, CartItem, Pessoa } = require('./associa');
+const { Morada, Cliente, PrestadorServico, Servico, Comentarios } = require('../models/models'); 
 
-/* // Importando modelos
-const Pessoa = require('../models/pessoa');
-const Produto = require('../models/product');
-const Cart = require('../models/cart');
-const CartItem = require('../models/cart-item'); */
+
 
 
 async function syncDatabase() {

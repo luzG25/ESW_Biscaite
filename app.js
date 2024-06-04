@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 const conexaoBD = require('./util/database')
-const inserirMoradas = require('./models/moradaInsert')
+//const inserirMoradas = require('./models/moradaInsert')
 const { Cliente, Morada, Categoria, Imagem, PrestadorServico, Servico, Comentarios } = require('./models/models');
 const clientRoutes = require('./routes/clientRoutes')
 const servicoRoutes = require('./routes/servicosRoutes')
@@ -43,7 +43,7 @@ conexaoBD.authenticate()
         });
 
         //console.log('Inserindo moradas na Tabela')
-        inserirMoradas(Morada)
+        //inserirMoradas(Morada)
       })
 
     .catch(error => {
