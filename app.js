@@ -1,5 +1,7 @@
 const express = require('express')
-const path = require('path')
+const cors = require('cors');
+const path = require('path');
+const logger = require('morgan');
 const conexaoBD = require('./util/database')
 //const inserirMoradas = require('./models/moradaInsert')
 const { Cliente, Morada, Categoria, Imagem, PrestadorServico, Servico, Comentarios } = require('./models/models');
@@ -8,10 +10,14 @@ const servicoRoutes = require('./routes/servicosRoutes')
 const moradaRoutes = require('./routes/moradaRoutes')
 
 
+
 const app = express()
 
 const port = 2000
 const hostname = "localhost"
+
+app.use(cors());
+app.use(logger('dev'))
 
 app.use(express.json());
 app.use(clientRoutes);
@@ -48,7 +54,7 @@ conexaoBD.authenticate()
 
     .catch(error => {
         console.error('Erro ao conectar com base de dados: ', error)
-        //process.exit(1)
+        process.exit(1)
     })
 
 module.exports = app
