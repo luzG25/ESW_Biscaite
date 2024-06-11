@@ -1,20 +1,26 @@
 const express = require('express')
 const client = require('../controllers/clientController')
+const authController = require('../controllers/authController')
+const auth = require('../middleware/auth')
+
 const router = express.Router()
 
 // criar cliente
-router.post('/novoCliente', client.criarCliente)
+router.post('/novoCliente', client.criarCliente, authController.registrarUser)
 
 //autenticar cliente
-router.post('/autenticate', client.autenticarCliente)
+//  --->/auth/login
+
+//ver perfil
+router.get('/profile/:id_cliente', auth, client.clientprofile)
 
 //ver serviços
 router.get('/servicos', client.verServicos)
 
 //avaliar serviço
-router.post('/servico/:id_servico', client.avaliarServico)
+router.post('/servico/:id_servico', auth ,client.avaliarServico)
 
 //modificar dados
-router.put('/modificarDados/:id_cliente', client.modificarDados)
+router.put('/modificarDados/:id_cliente', auth ,client.modificarDados, authController.modUser)
 
 module.exports = router

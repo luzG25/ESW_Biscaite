@@ -30,16 +30,13 @@ conexaoBD.authenticate()
         console.log('A conexão foi establecida com sucesso')
         
         //Sincronizar modelos
-        return conexaoBD.sync({force: true});
-        //return conexaoBD.sync();
+        //return conexaoBD.sync({force: true});
+        return conexaoBD.sync();
     })
 
     .then(() => {
       console.log('Tabelas sincronizadas com sucesso!');
       
-      
-
-
   })
 
     .then(() => {
@@ -48,8 +45,8 @@ conexaoBD.authenticate()
           console.log(`\n\n\n\n\n\n\nBackend rodando em http://${hostname}:${port}/`);
         });
 
-        console.log('Inserindo moradas na Tabela')
-        inserirMoradas(Morada)
+        //console.log('Inserindo moradas na Tabela')
+        //inserirMoradas(Morada)
       })
 
     .catch(error => {

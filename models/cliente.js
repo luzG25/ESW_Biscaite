@@ -23,10 +23,6 @@ const Cliente = sequelize.define('Cliente', {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true
-    },
-    password: {
-        type: Sequelize.STRING,
-        allowNull:false
     }
 }, {
     tableName: 'cliente',

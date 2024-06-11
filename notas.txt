@@ -3,3 +3,10 @@ to do:
     -modificação somente pela validação do token
     -qualquer operação no servicosController tem que ter validação do token
     -implementar categorias de serviços
+
+
+    -quando fazer uma alteracao, caso der erro num proximo, reverter o estado do outro base de dados
+    -validar que os campos necessarios estao no json da req
+    -modificar servico
+    -deletar servico
+    -deletar conta de prestador de servico

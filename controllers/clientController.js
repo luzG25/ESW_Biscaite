@@ -2,18 +2,22 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const models = require('../models/models')
 
-// criar cliente
-const criarCliente = async (req, res) => {
+
+//criar cliente
+const criarCliente = async (req, res, next) => {
     try {
         const { nome, morada, telefone, email, password } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
 
-        const novoCliente = await models.Cliente.create({ id_morada: morada, nome: nome, telefone: telefone, email: email, password: hashedPassword });
-        res.status(201).json(novoCliente);
+        const novoCliente = await models.Cliente.create({ id_morada: morada, nome, telefone, email });
+        
+        req.body.id_cliente = novoCliente.id_cliente; // Adiciona o ID do novo cliente ao corpo da requisição
+        
+        next(); // Passa para a próxima função middleware
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
+
 
 //autenticar cliente
 const autenticarCliente = async (req, res) => {
@@ -34,17 +38,35 @@ const autenticarCliente = async (req, res) => {
     }
 };
 
-//modificar dados
-const modificarDados = async (req, res) => {
+//ver perfil
+const clientprofile = async (req, res) => {
     try {
         const { id_cliente } = req.params;
-        const { morada, telefone, email, password } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const cliente = await models.Cliente.findOne({ where: { id_cliente } });
 
-        
-        await models.Cliente.update({ id_morada: morada, telefone: telefone, email:email, password:hashedPassword }, { where: { id_cliente } });
-        res.json({ message: 'Dados atualizados com sucesso' });
+        if (!cliente) {
+            return res.status(404).json({ message: 'Cliente não encontrado' });
+        }
+
+        res.json(cliente);
+
     } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+//modificar dados
+const modificarDados = async (req, res, next) => {
+    try {
+        const { id_cliente } = req.params;
+        req.body.id = id_cliente
+        const { morada, telefone, email } = req.body;
+        
+        await models.Cliente.update({ id_morada: morada, telefone: telefone, email:email }, {where:  {id_cliente}});
+        
+        next();
+    } catch (error) {
+        console.log(error.message);
         res.status(500).json({ error: error.message });
     }
 };
@@ -72,4 +94,4 @@ const avaliarServico = async (req, res) => {
 };
 
 
-module.exports = { criarCliente, autenticarCliente, modificarDados, verServicos, avaliarServico };
+module.exports = { criarCliente, autenticarCliente, modificarDados, verServicos, avaliarServico, clientprofile  };
