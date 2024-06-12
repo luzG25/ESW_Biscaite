@@ -8,6 +8,11 @@ const criarCliente = async (req, res, next) => {
     try {
         const { nome, morada, telefone, email, password } = req.body;
 
+        // Validação dos campos
+        if (!nome || !morada  || !telefone || !email || !password) {
+            return res.status(400).json({ error: 'Todos os campos (nome, morada, telefone, email, password) são obrigatórios.' });
+        }
+
         const novoCliente = await models.Cliente.create({ id_morada: morada, nome, telefone, email });
         
         req.body.id_cliente = novoCliente.id_cliente; // Adiciona o ID do novo cliente ao corpo da requisição
@@ -23,6 +28,12 @@ const criarCliente = async (req, res, next) => {
 const autenticarCliente = async (req, res) => {
     try {
         const { email, password } = req.body;
+
+        // Validação dos campos
+        if (!email || !password) {
+            return res.status(400).json({ error: 'Todos os campos (email, password) são obrigatórios.' });
+        }
+
         const cliente = await models.Cliente.findOne({ where: { email } });
         if (!cliente) {
             return res.status(404).json({ error: 'Cliente não encontrado' });
@@ -61,6 +72,11 @@ const modificarDados = async (req, res, next) => {
         const { id_cliente } = req.params;
         req.body.id = id_cliente
         const { morada, telefone, email } = req.body;
+
+        // Validação dos campos
+        if (!morada || !telefone  || !email) {
+            return res.status(400).json({ error: 'Todos os campos (morada, telefone, email) são obrigatórios.' });
+        }
         
         await models.Cliente.update({ id_morada: morada, telefone: telefone, email:email }, {where:  {id_cliente}});
         
@@ -86,6 +102,12 @@ const avaliarServico = async (req, res) => {
     try {
         const { id_servico } = req.params;
         const { id_cliente, comentario, pontos } = req.body;
+
+        // Validação dos campos
+        if (!id_cliente || !comentario  || !pontos) {
+            return res.status(400).json({ error: 'Todos os campos (id_cliente, comentario, pontos) são obrigatórios.' });
+        }
+
         const novaAvaliacao = await models.Comentarios.create({ id_servico, id_cliente, comentario, pontos });
         res.status(201).json(novaAvaliacao);
     } catch (error) {
