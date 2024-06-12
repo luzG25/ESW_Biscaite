@@ -5,7 +5,7 @@ const criarMorada = async (req, res) => {
         const { ilha, cidade, zona } = req.body;
         
         if (!ilha || !cidade || !zona) {
-            return res.status(400).json({ error: 'Todos os campos são obrigatórios' });
+            return res.status(400).json({ error: 'Todos os campos são obrigatórios (ilha, cidade, zona)' });
         }
 
         const novaMorada = await models.Morada.create({ ilha, cidade, zona });
@@ -28,6 +28,10 @@ const modificarMorada = async (req, res) => {
     try {
         const { id_morada } = req.params;
         const { ilha, cidade, zona } = req.body;
+       
+        if (!ilha || !cidade || !zona) {
+            return res.status(400).json({ error: 'Todos os campos são obrigatórios (ilha, cidade, zona)' });
+        }
 
         const morada = await models.Morada.findByPk(id_morada);
         if (!morada) {
