@@ -49,14 +49,18 @@ const modificarPrestadorServico = async (req, res) => {
 //criar serviço
 const criarServico = async (req, res) => {
     try {
+        //id_cliente = req.params
+
         const { id_prestador, nome_servico, descricao, id_categoria, imagens } = req.body;
 
         // Validação dos campos
         if (!id_prestador || !nome_servico || !descricao) {
             return res.status(400).json({ error: 'Todos os campos (id_prestador, nome_servico, descricao) são obrigatórios.' });
         }
+
+        //todo: validar cliente em relacao ao id
         
-        const prestador = await models.PrestadorServico.findByPk(id_prestador);
+        const prestador = await models.PrestadorServico.findByPk({id: id_prestador});
         if (!prestador) {
             return res.status(404).json({ error: 'Prestador de serviço não encontrado' });
         }
@@ -79,6 +83,8 @@ const modServico = async (req, res) => {
         }
 
         const id_prestador = req.params;
+
+        //todo: validar cliente em relacao ao prestador de servico
 
         const prestador = await models.PrestadorServico.findByPk(id_prestador);
         if (!prestador) {

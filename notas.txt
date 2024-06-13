@@ -6,10 +6,14 @@ to do:
 
 
     -quando fazer uma alteracao, caso der erro num proximo, reverter o estado do outro base de dados
-    -validar que os campos necessarios estao no json da req
+    x-validar que os campos necessarios estao no json da req
     X-modificar servico
     X-deletar servico
     X-deletar conta de prestador de servico
 
     -ver meus servicos
+    X-ver com mais detalhes os servicos
     -ver meu perfil
+    -erro em criar novo prestador de servico -->nao esta a dar id_prestador de servicos
+    -exploit encontrado, pode aceder a outras contas ao passar pelo auth
+    -rota para mostrar comentarios de um determinado servico

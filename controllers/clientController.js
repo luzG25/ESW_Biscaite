@@ -90,7 +90,13 @@ const modificarDados = async (req, res, next) => {
 //ver serviços
 const verServicos = async (req, res) => {
     try {
-        const servicos = await models.Servico.findAll();
+        const servicos = await models.Servico.findAll({
+            include: [{
+                model: models.PrestadorServico,
+                attributes: ['alcunha', 'biografia']
+            }]
+        });
+
         res.json(servicos);
     } catch (error) {
         res.status(500).json({ error: error.message });
