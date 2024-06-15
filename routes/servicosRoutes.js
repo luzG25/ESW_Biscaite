@@ -5,7 +5,7 @@ const auth = require('../middleware/auth')
 const router = express.Router();
 
 router.post('/criar', auth, servicos.criarPrestadorServico);
-router.put('/modificarprofile/:id_cliente', auth, servicos.modificarPrestadorServico);
+router.put('/modificarprofile', auth, servicos.modificarPrestadorServico);
 router.post('/novoServico', auth, servicos.criarServico)
 
 //modificar servico

@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 
+
 const auth = (req, res, next) => {
+
   const token = req.header('Authorization');
   if (!token) {
     return res.status(401).json({ msg: 'Nenhum token, autorização negada' });
@@ -9,6 +11,8 @@ const auth = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, 'secreto');
     req.user = decoded.user;
+    console.log(req.user.id)
+
     next();
   } catch (err) {
     res.status(401).json({ msg: 'Token inválido' });

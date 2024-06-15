@@ -12,7 +12,7 @@ router.post('/novoCliente', client.criarCliente, authController.registrarUser)
 //  --->/auth/login
 
 //ver perfil
-router.get('/profile/:id_cliente', auth, client.clientprofile)
+router.get('/profile/:id_cliente', client.clientprofile)
 
 //ver serviços
 router.get('/servicos', client.verServicos)
@@ -21,6 +21,6 @@ router.get('/servicos', client.verServicos)
 router.post('/servico/:id_servico', auth ,client.avaliarServico)
 
 //modificar dados
-router.put('/modificarDados/:id_cliente', auth ,client.modificarDados, authController.modUser)
+router.put('/modificarDados', auth ,client.modificarDados, authController.modUser)
 
 module.exports = router

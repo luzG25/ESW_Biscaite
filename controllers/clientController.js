@@ -52,7 +52,8 @@ const autenticarCliente = async (req, res) => {
 //ver perfil
 const clientprofile = async (req, res) => {
     try {
-        const { id_cliente } = req.params;
+        const id_cliente = req.params
+
         const cliente = await models.Cliente.findOne({ where: { id_cliente } });
 
         if (!cliente) {
@@ -69,7 +70,7 @@ const clientprofile = async (req, res) => {
 //modificar dados
 const modificarDados = async (req, res, next) => {
     try {
-        const { id_cliente } = req.params;
+        const id_cliente = req.user.id
         req.body.id = id_cliente
         const { morada, telefone, email } = req.body;
 
@@ -106,8 +107,10 @@ const verServicos = async (req, res) => {
 //avaliar serviço
 const avaliarServico = async (req, res) => {
     try {
+        const id_cliente = req.user.id;
+
         const { id_servico } = req.params;
-        const { id_cliente, comentario, pontos } = req.body;
+        const { comentario, pontos } = req.body;
 
         // Validação dos campos
         if (!id_cliente || !comentario  || !pontos) {

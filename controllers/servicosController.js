@@ -3,7 +3,9 @@ const models = require('../models/models')
 // criar prestador de serviço (apartir de um cliente existente)
 const criarPrestadorServico = async (req, res) => {
     try {
-        const { id_cliente, alcunha, imagem_perfil, biografia } = req.body;
+        id_cliente = req.user.id
+
+        const {  alcunha, imagem_perfil, biografia } = req.body;
 
         // Validação dos campos
         if (!id_cliente || !alcunha  || !biografia) {
@@ -26,7 +28,7 @@ const criarPrestadorServico = async (req, res) => {
 //modificar dados do prestador de serviço
 const modificarPrestadorServico = async (req, res) => {
     try {
-        const { id_cliente } = req.params;
+        const { id_cliente } = req.user.id
         const { alcunha, imagem_perfil, biografia } = req.body;
 
         // Validação dos campos
@@ -49,22 +51,23 @@ const modificarPrestadorServico = async (req, res) => {
 //criar serviço
 const criarServico = async (req, res) => {
     try {
-        //id_cliente = req.params
+        id_cliente = req.user.id
 
-        const { id_prestador, nome_servico, descricao, id_categoria, imagens } = req.body;
+        //prover id_prestador da base dados
+        const prestador = await models.PrestadorServico.findOne({id_cliente:id_cliente});
+        if (!prestador) {
+            return res.status(404).json({ error: 'Prestador de serviço não encontrado' });
+A           }   
+        const id_prestador = prestador.id
+        
+        const {  nome_servico, descricao, id_categoria, imagens } = req.body;
 
         // Validação dos campos
-        if (!id_prestador || !nome_servico || !descricao) {
+        if (!nome_servico || !descricao) {
             return res.status(400).json({ error: 'Todos os campos (id_prestador, nome_servico, descricao) são obrigatórios.' });
         }
 
-        //todo: validar cliente em relacao ao id
         
-        const prestador = await models.PrestadorServico.findByPk({id: id_prestador});
-        if (!prestador) {
-            return res.status(404).json({ error: 'Prestador de serviço não encontrado' });
-        }
-
         const novoServico = await models.Servico.create({ id_prestador, nome_servico, descricao, id_categoria, imagens });
         res.status(201).json(novoServico);
     } catch (error) {
@@ -73,8 +76,11 @@ const criarServico = async (req, res) => {
 };
 
 // modificar servico
+// /:id_servico/modificar
 const modServico = async (req, res) => {
-    try {
+    try {   
+        const id_servico = req.params
+
         const { nome_servico, descricao, id_categoria, imagens } = req.body;
        
         // Validação dos campos
@@ -82,16 +88,17 @@ const modServico = async (req, res) => {
             return res.status(400).json({ error: 'Todos os campos (nome_servico, descricao) são obrigatórios.' });
         }
 
-        const id_prestador = req.params;
 
-        //todo: validar cliente em relacao ao prestador de servico
-
-        const prestador = await models.PrestadorServico.findByPk(id_prestador);
+        //procurar o prestador de servico
+        id_cliente = req.user.id
+        //prover id_prestador da base dados
+        const prestador = await models.PrestadorServico.findOne({id_cliente: id_cliente});
         if (!prestador) {
             return res.status(404).json({ error: 'Prestador de serviço não encontrado' });
-        }
+        } 
+        id_prestador = prestador.id
 
-        const servico = await models.Servico.findByPk(id_prestador);
+        const servico = await models.Servico.findByPk(id_servico);
         await servico.update({ nome_servico, descricao, id_categoria, imagens });
         res.json({ message: 'Dados do servico atualizados com sucesso' });
 
@@ -102,17 +109,27 @@ const modServico = async (req, res) => {
 }
 
 //deletar Servico
+// /:id_servico/delete
 const delServico = async (req, res) => {
     try {
         id_servico = req.params;
 
+        //validar o prestador de servico
+        id_cliente = req.user.id
+        //prover id_prestador da base dados
+        const prestador = await models.PrestadorServico.findOne({id_cliente: id_cliente});
+        if (!prestador) {
+            return res.status(404).json({ error: 'Prestador de serviço não encontrado' });
+        } 
+        id_prestador = prestador.id
+        
         const servico = await models.Servico.findByPk(id_servico);
         if (!servico) {
             return res.status(404).json({ error: 'Serviço não encontrado' });
         }
 
         // Deleta o cliente
-        await models.Servico.destroy({ where: { id_servico } });
+        await models.Servico.destroy({ where: { id_servico:id_servico, id_prestador:id_prestador } });
 
         res.status(200).json({ message: 'Servico deletado com sucesso' });
 
@@ -134,7 +151,7 @@ const delPrestadoServico = async (req, res) => {
         }
 
         // Deleta o Prestador de Serviço
-        await models.PrestadorServico.destroy({ where: { id_prestador} });
+        await models.PrestadorServico.destroy({ where: { id_prestador:id_prestador, id_cliente:id_cliente} });
 
         res.status(200).json({ message: 'Prestador de Servico deletado com sucesso' });
 

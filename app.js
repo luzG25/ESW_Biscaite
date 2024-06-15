@@ -15,7 +15,7 @@ const app = express()
 conexaoMongoBD()
 
 
-const port = 2000
+const port = 2001
 const hostname = "localhost"
 
 app.use(express.json());
