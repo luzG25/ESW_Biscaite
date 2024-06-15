@@ -17,6 +17,9 @@ Comentarios.belongsTo(Servico, { foreignKey: 'id_servico', constraints: true,onD
 Comentarios.belongsTo(Cliente, { foreignKey: 'id_cliente' });
 Cliente.belongsTo(Morada, { foreignKey: 'id_morada' });
 
+Servico.hasMany(Comentarios, { foreignKey: 'id_servico' });
+PrestadorServico.hasOne(Cliente, { foreignKey: 'id_cliente' });
+
 // Exportar os modelos para uso em outros lugares
 module.exports = {
     Cliente,

@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const models = require('../models/models')
+const models = require('../models/models');
+const { where } = require('../models/user');
 
 
 //criar cliente
@@ -92,11 +93,27 @@ const modificarDados = async (req, res, next) => {
 const verServicos = async (req, res) => {
     try {
         const servicos = await models.Servico.findAll({
-            include: [{
-                model: models.PrestadorServico,
-                attributes: ['alcunha', 'biografia']
-            }]
+            include: [
+                {
+                    model: models.PrestadorServico,
+                    attributes: ['alcunha'],
+                    include: {
+                        model: models.Cliente,
+                        attributes: ['telefone', 'email'],
+                    }
+                },
+                {
+                    model: models.Comentarios,
+                    attributes: ['comentario', 'pontos'],
+                    include: {
+                        model: models.Cliente,
+                        attributes: ['nome'],
+                    }
+                }
+            ]
+
         });
+
 
         res.json(servicos);
     } catch (error) {

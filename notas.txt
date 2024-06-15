@@ -14,9 +14,9 @@ to do:
     -ver meus servicos
     X-ver com mais detalhes os servicos
     -ver meu perfil
-    -erro em criar novo prestador de servico -->nao esta a dar id_prestador de servicos
+    X-erro em criar novo prestador de servico -->nao esta a dar id_prestador de servicos
     X-exploit encontrado, pode aceder a outras contas ao passar pelo auth
-    -mostrar comentarios de um determinado servico
+    X-mostrar comentarios de um determinado servico
 
     -para todas as rotas posterior dentro de açoes a executar numa determinada conta
         deve ser identificada na rota o id do cliente e posteriormente o servico ou funcao que

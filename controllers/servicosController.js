@@ -1,6 +1,7 @@
 const models = require('../models/models')
 
 // criar prestador de serviço (apartir de um cliente existente)
+//1 cliente pode ter somente 1 conta de prestador
 const criarPrestadorServico = async (req, res) => {
     try {
         id_cliente = req.user.id
@@ -12,11 +13,18 @@ const criarPrestadorServico = async (req, res) => {
             return res.status(400).json({ error: 'Todos os campos (id_cliente, alcunha, biografia) são obrigatórios.' });
         }
 
+        //verificar se o cliente existe no db
         const cliente = await models.Cliente.findByPk(id_cliente);
-        
         if (!cliente) {
             return res.status(404).json({ error: 'Cliente não encontrado' });
         }
+
+        //verificar se o cliente já é prestador de servico
+        const n_prestador = await models.PrestadorServico.count({ where: { id_cliente } });
+        if (n_prestador > 0) {
+            return res.status(409).json({ error: 'Prestador de serviço já foi criado!' });
+        }
+
 
         const novoPrestador = await models.PrestadorServico.create({ id_cliente, alcunha, imagem_perfil, biografia });
         res.status(201).json(novoPrestador);
@@ -54,7 +62,7 @@ const criarServico = async (req, res) => {
         id_cliente = req.user.id
 
         //prover id_prestador da base dados
-        const prestador = await models.PrestadorServico.findOne({id_cliente:id_cliente});
+        const prestador = await models.PrestadorServico.findOne({ where: {id_cliente}});
         if (!prestador) {
             return res.status(404).json({ error: 'Prestador de serviço não encontrado' });
 A           }   
@@ -92,7 +100,7 @@ const modServico = async (req, res) => {
         //procurar o prestador de servico
         id_cliente = req.user.id
         //prover id_prestador da base dados
-        const prestador = await models.PrestadorServico.findOne({id_cliente: id_cliente});
+        const prestador = await models.PrestadorServico.findOne({ where: {id_cliente}});
         if (!prestador) {
             return res.status(404).json({ error: 'Prestador de serviço não encontrado' });
         } 
@@ -117,7 +125,7 @@ const delServico = async (req, res) => {
         //validar o prestador de servico
         id_cliente = req.user.id
         //prover id_prestador da base dados
-        const prestador = await models.PrestadorServico.findOne({id_cliente: id_cliente});
+        const prestador = await models.PrestadorServico.findOne({ where: {id_cliente}});
         if (!prestador) {
             return res.status(404).json({ error: 'Prestador de serviço não encontrado' });
         } 
